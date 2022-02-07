@@ -1,0 +1,28 @@
+<%- include ("page/_header")%>
+
+
+  <div class="form-popup text-center col" id="myForm" >
+
+
+    <form method="POST" id="update_course" action="http://localhost:3000/update">
+        <div class="mb-3">
+          <label for="name" class="form-label">Course name</label>
+          <input type="text" name="name" class="form-control" id="courseName" value="<%= course.name %>">
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duration</label>
+          <input type="text" name="duration" class="form-control" id="duration" value="<%= course.duration %>">
+        </div>
+        <div class="mb-3">
+            <label for="fees" class="form-label">Fees</label>
+            <input type="text" name="fees" class="form-control" id="fees" value="<%= course.fees %>">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+
+    </form>
+
+
+  </div>
+
+
+<%- include ("page/_footer")%>

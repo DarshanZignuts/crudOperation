@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "darshanp",
+    "password": "mTQKb3kQRTAqAj99dgwyPtGdSBTMYGgU",
+    "database": "darshanp",
+    "host": "15.206.7.200",
+    "port": "3310",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "darshanp",
+    "password": "mTQKb3kQRTAqAj99dgwyPtGdSBTMYGgU",
+    "database": "darshanp",
+    "host": "15.206.7.200",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "darshanp",
+    "password": "mTQKb3kQRTAqAj99dgwyPtGdSBTMYGgU",
+    "database": "darshanp",
+    "host": "15.206.7.200",
+    "dialect": "mysql"
+  }
+}
