@@ -3,22 +3,35 @@ const bodyParser = require('body-parser');
 const path = require("path");
 const app = express();
 const PORT = 3000;
-const router = require("./routes/route"); 
+const router = require("./route"); 
+var livereload = require("livereload");
+var connectLiveReload = require("connect-livereload");
 const sequelize = require('./src/database/connection');
 
 app.set("view engine", 'ejs');
 require("./src/database/connection");
-require("./src/bootstrap");
 
+app.use(bodyParser.urlencoded({extended : false}));
+app.use(bodyParser.json());
 app.use("/", router);
 
+app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 
-app.listen(PORT, () => {
-    console.log(`post connected:: http://localhost:${PORT}`);
+const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
 });
 
-// sequelize.sync().then(() => {
-//     app.listen(PORT, () => {
-//         console.log(`post connected:: http://localhost:${PORT}`);
-//     });
+app.use(connectLiveReload());
+
+// app.listen(PORT, () => {
+//     console.log(`post connected:: http://localhost:${PORT}`);
 // });
+
+sequelize.sync().then(() => {
+    app.listen(PORT, () => {
+        console.log(`post connected:: http://localhost:${PORT}`);
+    });
+});

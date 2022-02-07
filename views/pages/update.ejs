@@ -1,10 +1,12 @@
-<%- include ("page/_header")%>
-
+<%- include ("../partials/_header.ejs")%>
 
   <div class="form-popup text-center col" id="myForm" >
 
-
-    <form method="POST" id="update_course" action="http://localhost:3000/update">
+    <form method="" id="update_course" action="">
+        <div class="mb-3" hidden>
+          <label for="id" class="form-label">ID</label>
+          <input type="text" name="id" class="form-control" id="courseId" value="<%= course.id %>">
+        </div>
         <div class="mb-3">
           <label for="name" class="form-label">Course name</label>
           <input type="text" name="name" class="form-control" id="courseName" value="<%= course.name %>">
@@ -17,12 +19,13 @@
             <label for="fees" class="form-label">Fees</label>
             <input type="text" name="fees" class="form-control" id="fees" value="<%= course.fees %>">
         </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-
+        <input type="submit"  class="btn btn-primary" value="Submit">
     </form>
 
+    <script src="/assets/js/script.js"></script>
 
   </div>
 
+  
 
-<%- include ("page/_footer")%>
+<%- include ("../partials/_footer.ejs")%>

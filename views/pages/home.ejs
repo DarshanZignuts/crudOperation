@@ -1,4 +1,4 @@
-<%- include ("page/_header")%>
+<%- include ("../partials/_header.ejs")%>
 
 
 <% if (data.length == 0) { %>
@@ -9,10 +9,9 @@
 
   <h1 id="h1" class="bd-title mt-10 text-center">List of courses</h1>
 
-  <%- include ("page/_show") %>
+  <%- include ("../partials/_show") %>
 
 <% } %>  
 
 
-
-<%- include ("page/_footer")%>
+<%- include ("../partials/_footer.ejs")%>

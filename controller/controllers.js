@@ -1,20 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const bodyParser = require("body-parser");
+
 const Course = require("../src/models/course");
 
-const urlencodedParser = bodyParser.urlencoded({extended : false});
-
-// router.get("/", urlencodedParser, async function home(req,res){
-//     res.render('home.ejs')
-// });
-
-router.get("/get", urlencodedParser, async function find_All(req,res){
+async function find_All(req,res){
     try{
         let data = await Course.findAll();
         console.log('data :::: ', data)
         if(data){
-            res.render('home', {data: data});
+            res.render('./pages/home', {data: data});
         }
         else{
             res.render('home');
@@ -25,23 +17,22 @@ router.get("/get", urlencodedParser, async function find_All(req,res){
             err: err
         })
     }
-});
+};
 
-router.get("/add", urlencodedParser, async function addCourseShow(req,res){
+async function addCourseShow(req,res){
     try {
-        res.render("add.ejs");
+        res.render("pages/add.ejs");
     } catch(err) {
         res.status(400).send({
             status : "fail",
             err : err
         });
     }
-});
+};
 
-router.post("/add", urlencodedParser, async function addCourse(req,res){
+async function addCourse(req,res){
     try {
-        let obj = JSON.parse(JSON.stringify(req.body));
-        console.log("obj ::::", obj);
+        let { name, duration, fees} = req.body;
         console.log("req,body ::::",req.body)
         if(Object.keys(req.body).length == 0) {
             res.status(400).send({
@@ -49,12 +40,13 @@ router.post("/add", urlencodedParser, async function addCourse(req,res){
             });
         }
         const newCourse = {
-            name : obj.name,
-            duration : obj.duration,
-            fees : obj.fees
+            name : name,
+            duration : duration,
+            fees : fees
         };
         await Course.create(newCourse);
-        res.status(200).render("home.ejs")
+        let data = await Course.findAll();
+        res.status(200).render("pages/home.ejs" , {data : data});
 
     } catch(err) {
         console.log("err : ", err);
@@ -63,13 +55,13 @@ router.post("/add", urlencodedParser, async function addCourse(req,res){
             err : err
         });
     } 
-});
+};
 
-router.get("/update", urlencodedParser, async function updateCourseShow(req,res){
+async function updateCourseShow(req,res){
     try {
         let course = await Course.findOne({ where : { id : req.query.id }});
         if(course) {
-            res.render("update.ejs", { course : course });
+            res.render("pages/update.ejs", { course : course });
         } else {
             res.send("Something went wrong!");
         }
@@ -79,9 +71,9 @@ router.get("/update", urlencodedParser, async function updateCourseShow(req,res)
             err : err
         });
     }
-});
+};
 
-router.patch("/update/:id", urlencodedParser, async function updateCourse(req, res){
+async function updateCourse(req, res){
     try {
         if (!req.body) {
             return res.status(400).send({
@@ -94,12 +86,16 @@ router.patch("/update/:id", urlencodedParser, async function updateCourse(req, r
             }
         });
         if (data) {
-            Course.update({
+           await Course.update({
                 name : req.body.name,
                 duration : req.body.duration,
                 fees : req.body.fees
             }, { where : { id : req.body.id }});
-            res.redirect("/get");
+
+            let data = await Course.findAll();
+            // res.redirect('/')
+            res.status(200).render("home.ejs", { data : data });
+            
         } else {
             res.status(200).send({
                 status : "processs can't be complete..!",
@@ -113,9 +109,9 @@ router.patch("/update/:id", urlencodedParser, async function updateCourse(req, r
             err : "updateCourse err : " + err
         });
     }
-});
+};
 
-router.delete("/:id", urlencodedParser, async function remove_course(){
+async function remove_course(req,res){
     try {
         console.log("req.params : ", req.params);
         let data = await Course.findOne({ where : { id : req.params.id }});
@@ -134,9 +130,15 @@ router.delete("/:id", urlencodedParser, async function remove_course(){
             err : err
         });
     }
-});
+};
 
 
 
-
-module.exports= router ;
+module.exports = {
+    find_All, 
+    addCourseShow, 
+    addCourse, 
+    updateCourseShow,
+    updateCourse,
+    remove_course
+}

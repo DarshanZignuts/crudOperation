@@ -1,0 +1,21 @@
+<%- include ("../partials/_header.ejs")%>
+
+
+  <div class="form-popup text-center col" id="myForm" >
+    <form method="POST" action="/add" class="form-container ">
+      <h1>Add Course</h1><br>
+      <label for="name"><b>CourseName</b></label><br>
+      <input type="text" name="name" value="" id="courseName" required><br>
+
+      <label for="duration"><b>Duration</b></label><br>
+      <input type="text" name="duration" value="" id="duration" required><br>
+
+      <label for="fees"><b>Fees</b></label><br>
+      <input type="text" name="fees" value="" id="fees" required><br>
+
+      <button type="submit" class="btn btn-primary mt-1" >Submit Detail</button>
+    </form>
+  </div>
+
+  
+<%- include ("../partials/_footer")%>
