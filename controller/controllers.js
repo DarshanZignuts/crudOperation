@@ -1,10 +1,9 @@
-
 const Course = require("../src/models/course");
 
 async function find_All(req,res){
     try{
         let data = await Course.findAll();
-        console.log('data :::: ', data)
+            console.log('data :::: ', data)
         if(data){
             res.render('./pages/home', {data: data});
         }
@@ -22,7 +21,7 @@ async function find_All(req,res){
 async function addCourseShow(req,res){
     try {
         res.render("pages/add.ejs");
-    } catch(err) {
+    }catch(err) {
         res.status(400).send({
             status : "fail",
             err : err
@@ -33,7 +32,7 @@ async function addCourseShow(req,res){
 async function addCourse(req,res){
     try {
         let { name, duration, fees} = req.body;
-        console.log("req,body ::::",req.body)
+            console.log("req,body ::::",req.body)
         if(Object.keys(req.body).length == 0) {
             res.status(400).send({
                 msg : "Content can not be empty!"
@@ -45,6 +44,7 @@ async function addCourse(req,res){
             fees : fees
         };
         await Course.create(newCourse);
+
         let data = await Course.findAll();
         res.status(200).render("pages/home.ejs" , {data : data});
 
@@ -94,7 +94,7 @@ async function updateCourse(req, res){
 
             let data = await Course.findAll();
             // res.redirect('/')
-            res.status(200).render("home.ejs", { data : data });
+            res.status(200).render("pages/home.ejs", { data : data });
             
         } else {
             res.status(200).send({
@@ -113,7 +113,7 @@ async function updateCourse(req, res){
 
 async function remove_course(req,res){
     try {
-        console.log("req.params : ", req.params);
+            console.log("req.params : ", req.params);
         let data = await Course.findOne({ where : { id : req.params.id }});
         if (data) {
             let data = await Course.destroy({ where : { id : req.params.id }});

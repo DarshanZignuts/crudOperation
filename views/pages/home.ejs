@@ -1,17 +1,15 @@
 <%- include ("../partials/_header.ejs")%>
 
+  <% if (data.length == 0) { %>
 
-<% if (data.length == 0) { %>
+      <h1 class="text-center">There is no courses available!</h1>
 
-  <h1 class="text-center">There is no courses available!</h1>
+  <% } else { %>
 
-<% } else { %>
+      <h1 id="h1" class="bd-title mt-10 text-center">List of courses</h1>
 
-  <h1 id="h1" class="bd-title mt-10 text-center">List of courses</h1>
+      <%- include ("../partials/_show") %>
 
-  <%- include ("../partials/_show") %>
-
-<% } %>  
-
+  <% } %>  
 
 <%- include ("../partials/_footer.ejs")%>

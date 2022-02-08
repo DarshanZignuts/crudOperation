@@ -1,31 +1,23 @@
 <%- include ("../partials/_header.ejs")%>
 
   <div class="form-popup text-center col" id="myForm" >
+    <form method="POST" id="update_course" action="/update/">
+      <h1>Enter Detail From Update Course...!</h1>
 
-    <form method="" id="update_course" action="">
-        <div class="mb-3" hidden>
-          <label for="id" class="form-label">ID</label>
-          <input type="text" name="id" class="form-control" id="courseId" value="<%= course.id %>">
-        </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Course name</label>
-          <input type="text" name="name" class="form-control" id="courseName" value="<%= course.name %>">
-        </div>
-        <div class="mb-3">
-          <label for="duration" class="form-label">Duration</label>
-          <input type="text" name="duration" class="form-control" id="duration" value="<%= course.duration %>">
-        </div>
-        <div class="mb-3">
-            <label for="fees" class="form-label">Fees</label>
-            <input type="text" name="fees" class="form-control" id="fees" value="<%= course.fees %>">
-        </div>
-        <input type="submit"  class="btn btn-primary" value="Submit">
+          <label for="id" class="form-label" hidden>ID</label>
+              <input type="text" name="id" class="" id="courseId" value="<%= course.id %>" hidden>
+
+          <label for="name"><b>CourseName</b></label><br>
+              <input type="text" placeholder="Enter Course Name" name="name" value="<%= course.name %>" id="courseName" required><br>
+
+          <label for="duration"><b>Duration</b></label><br>
+              <input type="text" placeholder="enter days only" pattern="[0-9]*" name="duration" value="<%= course.duration %>" id="duration" required><br>
+
+          <label for="fees"><b>Fees</b></label><br>
+              <input type="text" placeholder="Amount In Numbers only" pattern="[0-9]*" name="fees" value="<%= course.fees %>" id="fees" required><br>
+              
+              <input type="submit"  class="btn btn-primary" value="Submit">
     </form>
-
-    <script src="/assets/js/script.js"></script>
-
   </div>
-
-  
 
 <%- include ("../partials/_footer.ejs")%>
